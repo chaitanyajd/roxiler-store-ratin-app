@@ -59,7 +59,7 @@ export class DatabaseStorage implements IStorage {
 
   async deleteUser(id: number): Promise<boolean> {
     const result = await db.delete(users).where(eq(users.id, id));
-    return result.rowCount > 0;
+    return (result.rowCount ?? 0) > 0;
   }
 
   async getUsers(filters?: { name?: string; email?: string; role?: string; address?: string }): Promise<UserWithStore[]> {
@@ -89,14 +89,14 @@ export class DatabaseStorage implements IStorage {
       if (filters.address) conditions.push(ilike(users.address, `%${filters.address}%`));
       
       if (conditions.length > 0) {
-        query = query.where(and(...conditions));
+        query = query.where(and(...conditions)) as any;
       }
     }
 
     const result = await query.orderBy(asc(users.name));
     return result.map(row => ({
       ...row,
-      store: row.store.id ? row.store : undefined
+      store: row.store?.id ? row.store : undefined
     }));
   }
 
@@ -123,7 +123,7 @@ export class DatabaseStorage implements IStorage {
 
   async deleteStore(id: number): Promise<boolean> {
     const result = await db.delete(stores).where(eq(stores.id, id));
-    return result.rowCount > 0;
+    return (result.rowCount ?? 0) > 0;
   }
 
   async getStores(filters?: { name?: string; address?: string }): Promise<StoreWithRating[]> {
@@ -144,7 +144,7 @@ export class DatabaseStorage implements IStorage {
       if (filters.address) conditions.push(ilike(stores.address, `%${filters.address}%`));
       
       if (conditions.length > 0) {
-        query = query.where(and(...conditions));
+        query = query.where(and(...conditions)) as any;
       }
     }
 
@@ -183,7 +183,7 @@ export class DatabaseStorage implements IStorage {
 
   async deleteRating(id: number): Promise<boolean> {
     const result = await db.delete(ratings).where(eq(ratings.id, id));
-    return result.rowCount > 0;
+    return (result.rowCount ?? 0) > 0;
   }
 
   async getRatings(): Promise<RatingWithDetails[]> {

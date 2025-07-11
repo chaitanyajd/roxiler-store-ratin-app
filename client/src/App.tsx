@@ -14,10 +14,11 @@ import StoreDashboard from "@/pages/store-dashboard";
 // Configure queryClient to use auth headers
 queryClient.setQueryDefaults([], {
   queryFn: async ({ queryKey }) => {
+    const authHeaders = getAuthHeaders();
     const response = await fetch(queryKey.join("/") as string, {
       headers: {
         "Content-Type": "application/json",
-        ...getAuthHeaders(),
+        ...authHeaders,
       },
       credentials: "include",
     });
@@ -30,7 +31,7 @@ queryClient.setQueryDefaults([], {
   },
 });
 
-function getAuthHeaders() {
+function getAuthHeaders(): Record<string, string> {
   const token = localStorage.getItem('auth_token');
   return token ? { Authorization: `Bearer ${token}` } : {};
 }
