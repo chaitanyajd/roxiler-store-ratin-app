@@ -66,7 +66,7 @@ export function UsersTable({ onAddUser }: UsersTableProps) {
   };
 
   const handleFilterChange = (key: string, value: string) => {
-    setFilters(prev => ({ ...prev, [key]: value }));
+    setFilters(prev => ({ ...prev, [key]: value === "all" ? "" : value }));
   };
 
   if (isLoading) {
@@ -118,7 +118,7 @@ export function UsersTable({ onAddUser }: UsersTableProps) {
                   <SelectValue placeholder="All Roles" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Roles</SelectItem>
+                  <SelectItem value="all">All Roles</SelectItem>
                   <SelectItem value="admin">System Admin</SelectItem>
                   <SelectItem value="user">Normal User</SelectItem>
                   <SelectItem value="store">Store Owner</SelectItem>
