@@ -9,9 +9,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Store, User, ChevronDown, Key, LogOut } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { UpdatePasswordForm } from "@/components/forms/update-password-form";
 
 export function Header() {
   const { user, logout } = useAuth();
+  const [showPasswordForm, setShowPasswordForm] = useState(false);
 
   const getRoleBadge = (role: string) => {
     switch (role) {
@@ -45,7 +47,7 @@ export function Header() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setShowPasswordForm(true)}>
                   <Key className="h-4 w-4 mr-2" />
                   Change Password
                 </DropdownMenuItem>
@@ -58,6 +60,11 @@ export function Header() {
           </div>
         </div>
       </div>
+      
+      <UpdatePasswordForm 
+        open={showPasswordForm} 
+        onOpenChange={setShowPasswordForm} 
+      />
     </header>
   );
 }

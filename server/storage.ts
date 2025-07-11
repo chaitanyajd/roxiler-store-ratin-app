@@ -9,7 +9,7 @@ export interface IStorage {
   createUser(user: InsertUser): Promise<User>;
   updateUser(id: number, user: Partial<InsertUser>): Promise<User | undefined>;
   deleteUser(id: number): Promise<boolean>;
-  getUsers(filters?: { name?: string; email?: string; role?: string; address?: string }): Promise<UserWithStore[]>;
+  getUsers(filters?: { name?: string; email?: string; role?: string; address?: string }, sortBy?: string, sortOrder?: string): Promise<UserWithStore[]>;
   
   // Store operations
   getStore(id: number): Promise<Store | undefined>;
@@ -62,7 +62,7 @@ export class DatabaseStorage implements IStorage {
     return (result.rowCount ?? 0) > 0;
   }
 
-  async getUsers(filters?: { name?: string; email?: string; role?: string; address?: string }): Promise<UserWithStore[]> {
+  async getUsers(filters?: { name?: string; email?: string; role?: string; address?: string }, sortBy?: string, sortOrder?: string): Promise<UserWithStore[]> {
     let query = db.select({
       id: users.id,
       name: users.name,
@@ -93,7 +93,12 @@ export class DatabaseStorage implements IStorage {
       }
     }
 
-    const result = await query.orderBy(asc(users.name));
+    // Apply sorting
+    const sortColumn = sortBy === "email" ? users.email : 
+                      sortBy === "role" ? users.role : 
+                      sortBy === "address" ? users.address : users.name;
+    
+    const result = await query.orderBy(sortOrder === "desc" ? desc(sortColumn) : asc(sortColumn));
     return result.map(row => ({
       ...row,
       store: row.store?.id ? row.store : undefined

@@ -10,7 +10,7 @@ async function seedData() {
     const adminPassword = await hashPassword("Admin123!");
     const [admin] = await db.insert(users).values({
       name: "System Administrator Account",
-      email: "admin@storerating.com",
+      email: "admin@roxilerstore.com",
       password: adminPassword,
       address: "123 Admin Street, Admin City, AC 12345",
       role: "admin"
@@ -20,7 +20,7 @@ async function seedData() {
     const userPassword = await hashPassword("User123!");
     const [normalUser] = await db.insert(users).values({
       name: "John Doe Regular User Account",
-      email: "user@storerating.com", 
+      email: "user@roxilerstore.com", 
       password: userPassword,
       address: "456 User Avenue, User City, UC 67890",
       role: "user"
@@ -30,7 +30,7 @@ async function seedData() {
     const storePassword = await hashPassword("Store123!");
     const [storeOwner] = await db.insert(users).values({
       name: "Jane Smith Store Owner Account",
-      email: "store@storerating.com",
+      email: "store@roxilerstore.com",
       password: storePassword,
       address: "789 Store Boulevard, Store City, SC 11111",
       role: "store"
@@ -81,15 +81,15 @@ async function seedData() {
     console.log("\nTest Accounts Created:");
     console.log("========================");
     console.log("Admin Account:");
-    console.log("  Email: admin@storerating.com");
+    console.log("  Email: admin@roxilerstore.com");
     console.log("  Password: Admin123!");
     console.log("");
     console.log("Normal User Account:");
-    console.log("  Email: user@storerating.com");
+    console.log("  Email: user@roxilerstore.com");
     console.log("  Password: User123!");
     console.log("");
     console.log("Store Owner Account:");
-    console.log("  Email: store@storerating.com");
+    console.log("  Email: store@roxilerstore.com");
     console.log("  Password: Store123!");
     console.log("");
     console.log("3 stores and 3 ratings have been created for testing.");

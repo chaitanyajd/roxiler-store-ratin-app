@@ -98,13 +98,15 @@ export default function Login() {
             </TabsContent>
 
             <TabsContent value="register">
-              <div className="text-center">
+              <div className="text-center space-y-4">
                 <p className="text-sm text-gray-600">
-                  Registration is available on the{" "}
-                  <Link href="/register" className="text-primary hover:underline">
-                    registration page
-                  </Link>
+                  New to Roxiler Store Rating Platform?
                 </p>
+                <Link href="/register">
+                  <Button className="w-full" variant="outline">
+                    Create New Account
+                  </Button>
+                </Link>
               </div>
             </TabsContent>
           </Tabs>

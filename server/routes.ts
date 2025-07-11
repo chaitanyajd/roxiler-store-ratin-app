@@ -73,10 +73,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({ user: { ...req.user, password: undefined } });
   });
 
+  app.put('/api/auth/password', authenticate, async (req: AuthRequest, res) => {
+    try {
+      const { currentPassword, newPassword } = req.body;
+      
+      if (!currentPassword || !newPassword) {
+        return res.status(400).json({ message: 'Current password and new password are required' });
+      }
+
+      const user = await storage.getUser(req.user!.id);
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+
+      const isCurrentPasswordValid = await comparePassword(currentPassword, user.password);
+      if (!isCurrentPasswordValid) {
+        return res.status(401).json({ message: 'Current password is incorrect' });
+      }
+
+      const hashedNewPassword = await hashPassword(newPassword);
+      await storage.updateUser(user.id, { password: hashedNewPassword });
+
+      res.json({ message: 'Password updated successfully' });
+    } catch (error) {
+      console.error('Password update error:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+
   // User routes
   app.get('/api/users', authenticate, requireRole('admin'), async (req, res) => {
     try {
-      const { name, email, role, address } = req.query;
+      const { name, email, role, address, sortBy, sortOrder } = req.query;
       const filters = {
         name: name as string,
         email: email as string,
@@ -84,7 +112,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         address: address as string
       };
       
-      const users = await storage.getUsers(filters);
+      const users = await storage.getUsers(filters, sortBy as string, sortOrder as string);
       res.json(users.map(user => ({ ...user, password: undefined })));
     } catch (error) {
       res.status(500).json({ message: 'Failed to fetch users' });

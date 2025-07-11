@@ -1,3 +1,17 @@
+/**
+ * Roxiler Store Rating Platform - Main Server Entry Point
+ * 
+ * A comprehensive full-stack store rating platform featuring:
+ * - Multi-role authentication (Admin, User, Store Owner)
+ * - Advanced filtering and sorting capabilities
+ * - Real-time analytics and reporting
+ * - Professional UI with responsive design
+ * 
+ * @author Roxiler Development Team
+ * @version 1.0.0
+ * @license MIT
+ */
+
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";

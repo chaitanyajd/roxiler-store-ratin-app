@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { StarRating } from "@/components/ui/star-rating";
-import { User, Store } from "lucide-react";
+import { User, Store, ChevronUp, ChevronDown } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { UserWithStore } from "@shared/schema";
 
@@ -36,14 +36,18 @@ export function UsersTable({ onAddUser }: UsersTableProps) {
     role: "",
     address: "",
   });
+  const [sortBy, setSortBy] = useState("name");
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
   const { data: users, isLoading } = useQuery({
-    queryKey: ["/api/users", filters],
+    queryKey: ["/api/users", filters, sortBy, sortOrder],
     queryFn: async () => {
       const params = new URLSearchParams();
       Object.entries(filters).forEach(([key, value]) => {
         if (value) params.append(key, value);
       });
+      params.append("sortBy", sortBy);
+      params.append("sortOrder", sortOrder);
       
       const response = await fetch(`/api/users?${params}`, {
         headers: AuthService.getAuthHeaders(),
@@ -67,6 +71,20 @@ export function UsersTable({ onAddUser }: UsersTableProps) {
 
   const handleFilterChange = (key: string, value: string) => {
     setFilters(prev => ({ ...prev, [key]: value === "all" ? "" : value }));
+  };
+
+  const handleSort = (column: string) => {
+    if (sortBy === column) {
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    } else {
+      setSortBy(column);
+      setSortOrder("asc");
+    }
+  };
+
+  const getSortIcon = (column: string) => {
+    if (sortBy !== column) return null;
+    return sortOrder === "asc" ? <ChevronUp className="h-4 w-4 ml-1" /> : <ChevronDown className="h-4 w-4 ml-1" />;
   };
 
   if (isLoading) {
@@ -144,10 +162,26 @@ export function UsersTable({ onAddUser }: UsersTableProps) {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Role</TableHead>
-                <TableHead>Address</TableHead>
+                <TableHead>
+                  <Button variant="ghost" onClick={() => handleSort("name")} className="p-0 font-medium">
+                    Name {getSortIcon("name")}
+                  </Button>
+                </TableHead>
+                <TableHead>
+                  <Button variant="ghost" onClick={() => handleSort("email")} className="p-0 font-medium">
+                    Email {getSortIcon("email")}
+                  </Button>
+                </TableHead>
+                <TableHead>
+                  <Button variant="ghost" onClick={() => handleSort("role")} className="p-0 font-medium">
+                    Role {getSortIcon("role")}
+                  </Button>
+                </TableHead>
+                <TableHead>
+                  <Button variant="ghost" onClick={() => handleSort("address")} className="p-0 font-medium">
+                    Address {getSortIcon("address")}
+                  </Button>
+                </TableHead>
                 <TableHead>Rating</TableHead>
                 <TableHead>Actions</TableHead>
               </TableRow>

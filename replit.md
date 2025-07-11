@@ -8,6 +8,20 @@ This is a full-stack web application for a store rating platform that allows use
 
 Preferred communication style: Simple, everyday language.
 
+## Test Accounts
+
+### System Administrator
+- Email: admin@roxilerstore.com
+- Password: Admin123!
+
+### Normal User
+- Email: user@roxilerstore.com
+- Password: User123!
+
+### Store Owner
+- Email: store@roxilerstore.com
+- Password: Store123!
+
 ## System Architecture
 
 ### Frontend Architecture
