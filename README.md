@@ -2,7 +2,7 @@
 
 A comprehensive full-stack store rating platform with advanced multi-role authentication, admin management capabilities, and sophisticated filtering/sorting functionality.
 
-## 🚀 Features
+##  Features
 
 ### Core Functionality
 - **Multi-Role Authentication System**: Support for System Administrator, Normal User, and Store Owner roles
@@ -29,7 +29,7 @@ A comprehensive full-stack store rating platform with advanced multi-role authen
 - **Type Safety**: Full TypeScript implementation across frontend and backend
 - **Modern Stack**: React, Express.js, and cutting-edge tooling
 
-## 🛠 Tech Stack
+##  Tech Stack
 
 ### Frontend
 - **React 18** with TypeScript
@@ -52,7 +52,7 @@ A comprehensive full-stack store rating platform with advanced multi-role authen
 - **Drizzle Kit** for database migrations
 - **TypeScript** for type safety
 
-## 📦 Installation
+##  Installation
 
 ### Prerequisites
 - Node.js (v18 or higher)
@@ -96,7 +96,7 @@ A comprehensive full-stack store rating platform with advanced multi-role authen
 7. **Access the application**
    Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## 🔑 Test Accounts
+## Test Accounts
 
 The application comes with pre-configured test accounts for different user roles:
 
@@ -106,7 +106,7 @@ The application comes with pre-configured test accounts for different user roles
 | Normal User | user@roxilerstore.com | User123! |
 | Store Owner | store@roxilerstore.com | Store123! |
 
-## 📚 API Documentation
+##  API Documentation
 
 ### Authentication Endpoints
 - `POST /api/auth/login` - User authentication
@@ -133,7 +133,7 @@ The application comes with pre-configured test accounts for different user roles
 - `PUT /api/ratings/:storeId` - Update rating
 - `DELETE /api/ratings/:id` - Delete rating
 
-## 🏗 Project Structure
+## Project Structure
 
 ```
 ├── client/                 # Frontend React application
@@ -151,7 +151,7 @@ The application comes with pre-configured test accounts for different user roles
 └── scripts/             # Database seeds and utilities
 ```
 
-## 🔐 Security Features
+## Security Features
 
 - **JWT Authentication**: Secure token-based authentication
 - **Password Hashing**: bcrypt with configurable rounds
@@ -160,7 +160,7 @@ The application comes with pre-configured test accounts for different user roles
 - **SQL Injection Protection**: Parameterized queries with Drizzle ORM
 - **Environment Variables**: Secure configuration management
 
-## 🚀 Deployment
+## Deployment
 
 ### Production Build
 ```bash
@@ -175,7 +175,7 @@ Ensure all required environment variables are set in production:
 - `SESSION_SECRET`: Secret for session management
 - `NODE_ENV`: Set to "production"
 
-## 📊 Database Schema
+##  Database Schema
 
 ### Users Table
 - `id`: Primary key
@@ -199,31 +199,3 @@ Ensure all required environment variables are set in production:
 - `rating`: Rating value (1-5)
 - `createdAt`: Timestamp
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- Built with modern web technologies
-- Inspired by best practices in full-stack development
-- Designed for scalability and maintainability
-
-## 📞 Support
-
-If you encounter any issues or have questions, please:
-1. Check the existing issues on GitHub
-2. Create a new issue with detailed information
-3. Contact the development team
-
----
-
-**Made with ❤️ by the Roxiler Development Team**
